@@ -1,0 +1,32 @@
+Intuition
+As we know stack can store any number in reverse order and the of palindrome is that we have to check if reverse of number is equal to original number then number is palindrome
+
+Approach
+Palindrome using stack .
+initially I pushed all the values of linked list in the stack then i compare the top of stack with the value of each linked list node......
+if both are equal then pop the stack and check for another node
+else return false.
+example : if linked list is 1->2->2->1 then stack store val of each node in reverse order 1 2 2 1
+if ll is 1->2->3 then stack store 3 2 1 comparing 1 and 3 give us false (not a palindrome)
+
+code: 
+    bool isPalindrome(ListNode* head){
+
+        stack<int> stk;
+        ListNode *temp = head;
+        while(temp != NULL){
+            stk.push(temp->val);
+            temp = temp->next;
+
+        }
+        temp = head;
+        while(temp!= NULL){
+            if(temp->val != stk.top()){
+                return false;
+            }
+            temp = temp->next;
+            stk.pop();
+        }
+
+        return true;
+    }
