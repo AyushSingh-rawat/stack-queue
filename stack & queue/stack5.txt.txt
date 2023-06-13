@@ -1,0 +1,52 @@
+# Intuition
+as we know stack store in reverse order so new record will on the top which help us in calculation.
+
+# Approach
+For D -> stack.peek() x 2 ... So then we will have twice the value of Last
+For C -> stack.pop() ... Invalidate last Score
+For + -> x=stack.top() , stack.pop(), y=stack.top() , z=x+y ,then push y,x,z resp..
+For x -> stack.push(stoi(x)))
+
+# Complexity
+- Time complexity:
+O(n)
+
+- Space complexity:
+O(n)
+
+# Code
+```
+class Solution {
+public:
+   
+    //using stack
+    int calPoints(vector<string>& opr){
+        stack<int> stk;
+        for(int i =0 ; i<opr.size(); i++){
+            if(opr[i] == "C"){
+                stk.pop();
+            }
+            else if(opr[i] == "D"){
+                stk.push(stk.top()*2);
+            }
+            else if(opr[i] == "+"){
+                int x = stk.top();
+                stk.pop();
+                int y = stk.top();
+                int z = x+y;
+                stk.push(x);
+                stk.push(z);
+            }
+            else{
+                stk.push(stoi(opr[i]));
+            }
+        }
+        int sum =0;
+        while(!stk.empty()){
+            sum += stk.top();
+            stk.pop();
+        }
+        return sum;
+    }
+};
+```
