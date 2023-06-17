@@ -1,0 +1,39 @@
+#FINAL PRICES WITH A SPECIAL DISCOUNT IN A SHOP
+approach -> this question is similar to next greatest element (standard question) 
+
+TC is O(n^2)
+CODE :
+
+vector<int> finalPrices(vector<int>& prices) {
+
+        vector<int> ans;
+        stack<int> stk;
+        for(int i = prices.size() -1; i>=0 ; i--){
+            if(stk.size() == 0){
+                ans.push_back(prices[i]);
+                stk.push(prices[i]);
+            }
+            else if (stk.size() != 0 && prices[i] > stk.top()){
+                ans.push_back(prices[i] - stk.top());
+                stk.push(prices[i]);
+            }
+            else{
+                while(stk.size() != 0 && prices[i] < stk.top()){
+                    stk.pop();
+                }
+                if(stk.size() == 0){
+                    ans.push_back(prices[i]);
+                    stk.push(prices[i]);
+                }
+                else{
+                    ans.push_back(prices[i] - stk.top());
+                    stk.push(prices[i]);
+                }
+            }
+        }
+
+        reverse(ans.begin(), ans.end());
+
+        return ans;
+        
+    }

@@ -1,0 +1,50 @@
+REMOVE ALL THE ADJACENT DUPLICATES IN STRING.....
+APPROACH -> using Recursion
+
+Code-> 
+string removeDuplicates(string s) {
+        //BY RECURSION
+        if(s.length() == 0 || s.length() == 1){
+            return s;
+        }
+        string x = removeDuplicates(s.substr(1));
+        //small calculation
+        if(s[0] == x[0]){
+            return x.substr(1);
+        }
+        else{
+            string c;
+            c.push_back(s[0]);
+            c = c+ x;
+            return c;
+        }
+    }
+
+ERROR IN ABOVE CODE :
+The "Memory Limit Exceeded" error in your code is likely caused by the recursion depth and the number of function calls it generates.
+
+In your code, for each recursive call to removeDuplicates, a new substring x is created using s.substr(1). This leads to multiple substrings being created and stored in memory, consuming more memory with each recursive call. As a result, when the input string s is large or contains many duplicates, the recursion depth and the memory usage can exceed the system's memory limits.
+
+USING STACK code :
+string removeDuplicates(string s) {
+
+        stack<char> stk;
+        stk.push(s[0]);
+        for(int i=1; i< s.length(); i++){
+            if(stk.size() != 0 &&stk.top() == s[i]){
+                stk.pop();
+            }
+            else{
+                stk.push(s[i]);
+            }
+
+        }
+        string result = "";
+        while(stk.size() != 0){
+            result.push_back(stk.top());
+            stk.pop();
+
+        }
+        reverse(result.begin(), result.end());
+        return result;
+    }
